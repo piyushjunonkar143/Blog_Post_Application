@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>New Post</title>
+    <style>
+    body {
+        margin: 2%;
+        text-align: center;
+    }
+    button {
+        width: 80px;
+        height: 30px;
+        font-size:medium;
+    }
+    h1 {
+        font-family:Georgia, 'Times New Roman', Times, serif;
+    }
+    h2 {
+        font-family: 'Times New Roman', Times, serif;
+    }
+    input {
+        height: 30px;
+        width: 80%;
+    }
+    #content {
+        width: 80%;
+        height: 300px;
+    }
+
+    </style>
+</head>
+<body>
+<span style="float:right;"><a href="/"><button>home</button></a></span>
+<h1>New Post</h1>
+<form action="/newPost" method="post">
+    <input type="text" placeholder="Title" name="title" required>
+    <br>
+    <br> <input type="text" placeholder="tags" name="tags" required>
+    <br>
+    <br>
+    <div sec:authorize="hasAuthority('AUTHOR')">
+            <input type="text" placeholder="author name" name="author" readonly th:value="${#authentication.name}">
+    </div>
+    <div sec:authorize="hasAuthority('ADMIN')">
+        <input type="text" placeholder="author name" name="author" required>
+    </div>
+    <br>
+    <br>
+    <textarea id="content" placeholder="content..." name="content"
+              minlength="150" maxlength="2980" required></textarea>
+    <br>
+    <br>
+    <button type="submit">publish</button>
+</form>
+
+</body>
+</html>

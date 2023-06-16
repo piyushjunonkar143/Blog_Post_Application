@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>New Comment</title>
+    <style>
+body {
+	padding: 35px 150px 0px 55px;
+}
+
+input {
+	height: 30px;
+	width: 80%;
+}
+
+#commentBox {
+	width: 80%;
+	height: 300px;
+}
+
+    </style>
+</head>
+<body>
+<span style="float: right;"><a href="/"><button>home</button></a></span>
+<h1>Add Comment</h1>
+<form th:action="@{/newComment/{postId}(postId=${postId})}"
+      method="post">
+    <input type="hidden" name="postId" value="${postId}"/> <input
+        type="text" placeholder="Name" name="name" required > <br>
+    <br> <input type="email" placeholder="Email" name="email"
+                required> <br>
+    <br>
+    <textarea id="commentBox" placeholder="Comment..." name="comment"
+              maxlength="1080" required></textarea>
+    <br>
+    <br>
+    <button type="submit">comment</button>
+</form>
+
+</body>
+</html>

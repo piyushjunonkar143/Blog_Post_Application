@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+    <style>
+body {
+	margin: 10%;
+	text-align: center;
+}
+
+h1 {
+	font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+input {
+	margin-bottom: 15px;
+	width: 250px;
+	height: 28px;
+}
+
+button {
+	width: 80px;
+	height: 30px;
+	font-size: medium;
+}
+
+a {
+	text-decoration: none;
+}
+
+#errorMessage {
+	color: red;
+	font-size: small;
+}
+
+    </style>
+</head>
+<body>
+<h1>Create account</h1>
+
+<form th:action="@{/register}" method="post" th:object="${user}">
+    <input type="text" placeholder="Name" name="name" required> <br>
+    <input type="text" placeholder="Email" name="email" required>
+    <br>
+    <input type="password" placeholder="Password" name="password" required>
+    <br>
+    <input type="password" placeholder="Confirm password" name="confirm_Password" required>
+    <br>
+    <select name="roles">
+        <option value="" selected>Choose Role</option>
+        <option value="ADMIN">Admin</option>
+        <option value="AUTHOR">Author</option>
+    </select>
+    <br><span th:text="${error}" id="errorMessage"></span> <br>
+    <br>
+    <button type="submit">submit</button>
+</form>
+<br>
+<div>
+    Have account? <a href="/login">Login</a>
+</div>
+
+</body>
+</html>

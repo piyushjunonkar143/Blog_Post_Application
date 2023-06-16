@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Post</title>
+    <style>
+body {
+	text-align: center;
+	padding: 0px 150px 0px 150px;
+}
+
+a {
+	text-decoration: none;
+}
+
+h1 {
+	margin-left: 100px;
+	font-size: 50px;
+}
+
+#loginBtn {
+	margin-left: -300px;
+	float: right;
+	font-size: medium;
+}
+
+#editBtn {
+	float: right;
+	font-size: medium;
+}
+
+#deleteBtn {
+	float: right;
+	font-size: medium;
+}
+
+#commentContainer {
+	margin: -1px 0px 0px -1px;
+	padding: 10px 0px 10px 25px;
+	border: 2px solid black;
+	width: 1140px;
+	height: auto;
+	text-align: left;
+}
+
+#mainCommentContainer {
+	margin-top: -20px;
+	border: 2px solid black;
+	height: 500px;
+	overflow-y: scroll;
+}
+
+p {
+	margin-top: -1px;
+	font-size: small;
+}
+
+#commentEditDeleteBtn {
+	width: 150px;
+	float: right;
+}
+
+#commentDeleteBtn, #commentEditBtn {
+	margin-top: 10px;
+	height: 30px;
+}
+
+#commentAddBtn {
+	float: right;
+	margin-top: 10px;
+	height: 30px;
+}
+
+#tagNames {
+	margin: -110px 0px 0px 0px;
+	font-size: medium;
+	float: left;
+}
+
+    </style>
+</head>
+<body>
+<form th:action="@{/posts/delete/{postId}(postId=${post.id})}">
+    <button type="submit" id="deleteBtn"
+            th:if="${(post.author == #authentication.name) or #authorization.expression('hasAuthority(''ADMIN'')')}">delete</button>
+</form>
+<form th:action="@{/posts/update/{postId}(postId=${post.id})}">
+    <button type="submit" id="editBtn"
+            th:if="${(post.author == #authentication.name) or #authorization.expression('hasAuthority(''ADMIN'')')}">edit</button>
+</form>
+<a href="/login" sec:authorize="isAnonymous()">
+    <button id="loginBtn">Login</button>
+</a>
+<h1 th:text="${post.title}"></h1>
+<div id="tagNames">
+    <span th:each="tag : ${post.tags}" th:text="'  #' + ${tag.name}"></span>
+</div>
+<h4>
+    <span th:text="${post.author}"> </span> , <span
+        th:text="${post.publishedAt}"> </span>
+</h4>
+<div th:text="${post.content}"></div>
+<br>
+<br>
+<br>
+<br>
+<form th:action="@{/newComment/{postId}(postId=${post.id})}">
+    <button type="submit" id="commentAddBtn">Add Comment</button>
+</form>
+<br>
+<h2>Comments</h2>
+<br>
+<div id="mainCommentContainer">
+    <div id="commentContainer" th:each="commentData : ${comments}">
+        <div id="commentEditDeleteBtn">
+            <a      th:if="${(commentData.post.author == #authentication.name)}"
+                    th:href="@{/comment/edit/{commentId}(commentId=${commentData.id})}">
+                <button
+                        id="commentEditBtn">edit comment
+                </button>
+            </a> <a
+                th:href="@{/comment/delete/{commentId}(commentId=${commentData.id})}">
+            <button th:if="${commentData.post.author == #authentication.name}"
+                    id="commentDeleteBtn">delete comment
+            </button>
+        </a>
+        </div>
+        <b><span th:text="${commentData.name}"></span></b>
+        <p>
+            <span th:text="${commentData.updatedAt}"> </span> , <span
+                th:text="${commentData.email}"></span>
+        </p>
+        Comment :
+        <div th:text="${commentData.comment}"></div>
+
+    </div>
+</div>
+
+</body>
+</html>

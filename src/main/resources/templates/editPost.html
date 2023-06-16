@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>New Post</title>
+    <style>
+body {
+	margin: 2%;
+	text-align: center;
+}
+
+button {
+	width: 80px;
+	height: 30px;
+	font-size: medium;
+}
+
+h1 {
+	font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+h2 {
+	font-family: 'Times New Roman', Times, serif;
+}
+
+input {
+	height: 30px;
+	width: 80%;
+}
+
+#content {
+	width: 80%;
+	height: 300px;
+}
+
+    </style>
+</head>
+<body>
+<h1>Edit post</h1>
+<form th:action="@{/posts/update/{postId}(postId=${post.id})}"
+      method="post" th:object="${post}">
+         Title   :<input type="text" placeholder="Title" name="title"
+                  th:field="${post.title}" required> <br>
+    <br> Tags    :<input type="text" placeholder="tags" name="tags"
+                      th:value="${tagNames}" required> <br>
+    <br> Author  :<input type="text" placeholder="author name"
+                        name="author" th:field="${post.author}" readonly>    <br>
+    <br> Content :
+    <textarea id="content" placeholder="content..." name="content"
+              th:field="${post.content}" minlength="150" maxlength="2980" required></textarea>
+    <br>
+    <br>
+    <button type="submit">Update</button>
+</form>
+<a href="/">
+    <button>home</button>
+</a>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <style>
+body {
+	margin: 10%;
+	text-align: center;
+}
+
+a {
+	text-decoration: none;
+}
+
+button {
+	width: 80px;
+	height: 27px;
+	font-size: medium;
+}
+
+h1 {
+	font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+input {
+	width: 250px;
+	height: 28px;
+}
+
+#errorMessage {
+	color: red;
+	font-size: small;
+}
+
+    </style>
+</head>
+<body>
+<h1>login</h1>
+<form th:action="@{/authenticateTheUser}" method="post">
+    <input type="text" placeholder="Email" name="username" required>
+    <br>
+    <br> <input type="password" placeholder="Password"
+                name="password" required> <br>
+    <br> <span th:if="${param.error}"><i>error</i>
+</span>
+    <br>
+    <button type="submit">submit</button>
+</form>
+<br>
+<div>
+    Doesn't have account? <a href="/register">Create one</a>
+</div>
+</body>
+</html>

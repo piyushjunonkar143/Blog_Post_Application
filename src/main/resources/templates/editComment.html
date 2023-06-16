@@ -1,0 +1,45 @@
+ <!DOCTYPE html>
+ <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Comment</title>
+    <style>
+body {
+	padding: 35px 150px 0px 55px;
+}
+
+input {
+	align-items: center;
+	height: 30px;
+	width: 80%;
+}
+
+#commentBox {
+	width: 80%;
+	height: auto;
+}
+
+button {
+	align-items: center;
+}
+
+    </style>
+</head>
+<body>
+<span style="float: right;"><a href="/"><button>home</button></a></span>
+<h1>Edit Comment</h1>
+<form th:action="@{/comment/edit/{commentId}(commentId=${commentId})}"
+      method="post">
+    <input type="hidden" name="commentId" th:value="${commentData.id}"/>
+         name       : <input type="text" name="name" readonly th:value="${commentData.name}"> <br>
+    <br> email Id   : <input type="email" name="email"
+                           th:value="${commentData.email}" required> <br>
+    <br> comment    : <input id="commentBox" name="comment"
+                          th:value="${commentData.comment}" maxlength="1080" required>
+    <br>
+    <br>
+    <button type="submit">update</button>
+</form>
+
+</body>
+</html>
